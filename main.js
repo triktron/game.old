@@ -1,6 +1,7 @@
 var ak_lr = 3;
 var ak_ud = 3;
 var jump_time = 4;
+var ani_f = 1;
 
 var back_mu = new Audio('background_song.mp3');
 back_mu.play();
@@ -50,7 +51,7 @@ function move(e)
 	}
 	if (keyCode == 38 && jump_time == 4) {
 		jump_time = 1;
-		document.getElementById("turtel").src = "img/turtrl_raw/turtel_raw_1_jump.png";
+		document.getElementById("turtel").src = "img/turtel_raw_1_jump.png";
 	}
 }
 
@@ -77,4 +78,16 @@ function jump3() {
 	}
 }
 
+function ani() {
+	ani_f++;
+	if (ani_f == 33) {
+		ani_f = 1;
+	}
+	if (jump_time == 4) {
+	document.getElementById("turtel").src = "img/turtrl_raw/turtel_raw_"+ ani_f +".png";
+	}
+	document.title = ani_f;
+	setTimeout(function(){ani();},240);
+}
+ani();
 main();
