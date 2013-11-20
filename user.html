@@ -10,6 +10,9 @@
 <input type="button" onClick="code_cookie();" value="alert">
    <br>
  <div id="log"></div>
+ 
+ <div id=pubnub pub-key=demo sub-key=demo></div>
+<script src=http://cdn.pubnub.com/pubnub-3.1.min.js></script>
 </body>
 
 <script>
@@ -81,9 +84,34 @@ function code_cookie() {
 function log_users() {
 	var temp = "";
 	for (i in Users) {
-	temp += "<table border='1' align='left'><tr><td>nick</td><td>"+Users[i].nick+"</td></tr><tr><td>pass</td><td>"+Users[i].pass+"</td></tr><tr><td>op</td><td>"+Users[i].op+"</td></tr></table>&nbsp;&nbsp;&nbsp;&nbsp;";
+	temp += "<table border='1' align='left'><tr><td>nick</td><td>"+Users[i].nick+"</td></tr><tr><td>pass</td><td>"+Users[i].pass+"</td></tr><tr><td>op</td><td>"+Users[i].op+"</td></tr></table>";
 	}
 	document.getElementById("log").innerHTML = temp;
+}
+
+function ont(text) {
+	var ifex = 0;
+	for (i in Users) {
+		if (text.split("#")[0] == Users[i].nick) {
+			if (text.split("#")[0] == Users[i].pass) {
+				ifex = 1;
+			}
+		}
+	}
+	if (ifex == 1) {
+		alert(text.split("#")[0] + " send:" + text.split("#")[2]);
+	}
+}
+PUBNUB.subscribe({
+channel : "game_triktron",
+callback : function(text) { if ((''+text).replace( /[<>]/g, '' ) != last_send) {ont((''+text).replace( /[<>]/g, '' ));} }
+});
+
+
+function send(mes) {
+	PUBNUB.publish({
+channel : "game_triktron", message : "server#"+mes
+});
 }
 </script>
 </html>
