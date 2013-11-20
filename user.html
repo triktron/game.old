@@ -55,7 +55,7 @@ add_user=function(nick,pass,op) {
 function decode_cookie(o_cookie) {
 	Users = [];
 	var s_cookie = o_cookie.split("#");
-	var s_cookie_leng =  s_cookie.length - 1;
+	var s_cookie_leng =  s_cookie.length;
 	
 	for (var i = 0;i > s_cookie_leng;i++) {
 		var c_cookie = s_cookie[i].split("|");
