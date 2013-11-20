@@ -55,12 +55,11 @@ add_user=function(nick,pass,op) {
 function decode_cookie(o_cookie) {
 	Users = [];
 	var s_cookie = o_cookie.split("#");
-	var s_cookie_leng =  s_cookie.length;
 	
-	for (var i = 0;i < s_cookie_leng;i++) {
+	for (i in s_cookie) {
 		var c_cookie = s_cookie[i].split("|");
-		new add_user(c_cookie[1],c_cookie[2],c_cookie[3]);
-		alert(c_cookie[1] + "," + c_cookie[2] + "," + c_cookie[3]);
+		new add_user(c_cookie[0],c_cookie[1],c_cookie[2]);
+		alert(c_cookie[0] + "," + c_cookie[1] + "," + c_cookie[2]);
 	}
 }
 
