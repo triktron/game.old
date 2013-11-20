@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+</head>
+
+<body>
+<div id=pubnub pub-key=demo sub-key=demo></div>
+<script src=http://cdn.pubnub.com/pubnub-3.1.min.js></script>
+</body>
+
+<script>
+function send(mes) {
+	PUBNUB.publish({
+channel : "chat", message : mes
+});
+}
+
+window.onbeforeunload = confirmExit;
+function confirmExit(){
+	send("closed");
+    
+}
+</script>
+</html>

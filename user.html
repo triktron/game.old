@@ -8,6 +8,7 @@
 <body onLoad='decode_cookie(getCookie("cookie_data"));'>
 <input type="button" onClick='new add_user(prompt("nick",""),prompt("pass",""),prompt("op : fales or true","false"));' value="add user">
 <input type="button" onClick="code_cookie();" value="alert">
+<br><div id="log"></div>
 </body>
 
 <script>
@@ -61,6 +62,7 @@ function decode_cookie(o_cookie) {
 		new add_user(c_cookie[0],c_cookie[1],c_cookie[2]);
 		alert(c_cookie[0] + "," + c_cookie[1] + "," + c_cookie[2]);
 	}
+	log_users()
 }
 
 function code_cookie() {
@@ -72,7 +74,15 @@ function code_cookie() {
 	temp = temp.substring(0,temp.length - 1);
 	alert(temp);
 	setCookie("cookie_data",temp,9999999);
+	log_users()
 	
+}
+function log_users() {
+	var temp = "";
+	for (i in Users) {
+	temp += "<table border='1'><tr><td>nick</td><td>"+Users[i].nick+"</td></tr><tr><td>pass</td><td>"+Users[i].pass+"</td></tr><tr><td>op</td><td>"+Users[i].op+"</td></tr></table>";
+	}
+	document.getElementById("log").innerHTML = temp;
 }
 </script>
 </html>
