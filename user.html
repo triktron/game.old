@@ -66,7 +66,7 @@ function decode_cookie(o_cookie) {
 
 function code_cookie() {
 	var temp = "";
-	for (var i = 0;i < Users.length;i++) {
+	for (var i = 0;i > Users.length;i++) {
 		alert(Users[i].nick + "," + Users[i].pass + "," + Users[i].op);
 		temp += Users[i].nick + "|" + Users[i].pass + "|" + Users[i].op + "#";
 	}
