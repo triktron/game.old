@@ -61,6 +61,10 @@ function decode_cookie(o_cookie) {
 		var c_cookie = s_cookie[i].split("|");
 		new add_user(c_cookie[1],c_cookie[2],c_cookie[3]);
 	}
+	
+	for (var i = 0;i < Users.length;i++) {
+		alert(Users[i].nick + "," + Users[i].pass + "," + Users[i].op);
+	}
 }
 
 function code_cookie() {
