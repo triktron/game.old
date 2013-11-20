@@ -1,0 +1,42 @@
+<input type="button" value="send" onClick="send(prompt('wat',''));">
+<div id=pubnub pub-key=demo sub-key=demo></div>
+<script src=http://cdn.pubnub.com/pubnub-3.1.min.js></script>
+<script>
+var last_send;
+var last_ont;
+var hach = location.hash || "???";
+var channel = "triktron_buurenruuzie" + hach;
+var pl;
+
+PUBNUB.subscribe({
+channel : channel,
+callback : function(text) { if ((''+text).replace( /[<>]/g, '' ) != last_send) {ont((''+text).replace( /[<>]/g, '' ));} }
+});
+
+
+function send(mes) {
+	PUBNUB.publish({
+channel : channel, message : mes
+});
+last_send = mes;
+}
+
+
+function ont(text) {
+	last_ont = text;
+	if (last_ont == 80) {
+		send(81);
+	}
+}
+function int() {
+	send(80);
+	setTimeout(function(){if (last_ont == 81) {pl = 2;}else{pl = 1}alert(pl);},1000);
+}
+int();
+
+/*
+80 = vraag of er iemand is.
+81 = er is iemand.
+
+*/
+</script>

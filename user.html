@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+</head>
+
+<body onLoad='decode_cookie(getCookie("cookie_data"));'>
+<input type="button" onClick='new add_user(prompt("nick",""),prompt("pass",""),prompt("op : fales or true","false"));' value="add user">
+<input type="button" onClick="code_cookie();" value="alert">
+</body>
+
+<script>
+function getCookie(c_name)
+{
+var c_value = document.cookie;
+var c_start = c_value.indexOf(" " + c_name + "=");
+if (c_start == -1)
+  {
+  c_start = c_value.indexOf(c_name + "=");
+  }
+if (c_start == -1)
+  {
+  c_value = null;
+  }
+else
+  {
+  c_start = c_value.indexOf("=", c_start) + 1;
+  var c_end = c_value.indexOf(";", c_start);
+  if (c_end == -1)
+    {
+    c_end = c_value.length;
+    }
+  c_value = unescape(c_value.substring(c_start,c_end));
+  }
+return c_value;
+}
+
+function setCookie(c_name,value,exdays)
+{
+var exdate=new Date();
+exdate.setDate(exdate.getDate() + exdays);
+var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+document.cookie=c_name + "=" + c_value;
+}
+
+var Users = [];
+add_user=function(nick,pass,op) {
+	this.nick = nick;
+	this.pass = pass;
+	this.op = op;
+	Users.push(this);
+}
+
+function decode_cookie(o_cookie) {
+	Users = [];
+	var s_cookie = o_cookie.split("#");
+	var s_cookie_leng =  s_cookie.length - 1;
+	
+	for (var i = 0;i< s_cookie_leng;i++) {
+		var c_cookie = s_cookie[i].split("|");
+		new add_user(c_cookie[1],c_cookie[2],c_cookie[3]);
+	}
+}
+
+function code_cookie() {
+	var temp = "";
+	for (var i = 0;i < Users.length;i++) {
+		alert(Users[i].nick + "," + Users[i].pass + "," + Users[i].op);
+		temp += Users[i].nick + "|" + Users[i].pass + "|" + Users[i].op + "#";
+	}
+	temp = temp.substring(0,temp.length - 1);
+	alert(temp);
+	setCookie("cookie_data",temp,9999999);
+}
+</script>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="http://simplewebrtc.com/latest.js"></script>
+        <script src="https://rawgithub.com/HenrikJoreteg/video-recorder/master/vendor/fauxplay.bundle.js"></script>
+<script src="https://rawgithub.com/HenrikJoreteg/video-recorder/master/video-recorder.bundle.js"></script> 
+    </head>
+    <body>
+        <video height="300" id="localVideo"></video>
+        <div id="remotesVideos"></div>
+<br><br>
+<img id="demo">
+<div>
+  <button id="record">Record</button>
+  <button id="play">Play</button>
+  <button id="reset">Reset recording</button>
+</div>
+    </body>
+
+<script>
+var webrtc = new SimpleWebRTC({
+    // the id/element dom element that will hold "our" video
+    localVideoEl: 'localVideo',
+    // the id/element dom element that will hold remote videos
+    remoteVideosEl: 'remotesVideos',
+    // immediately ask for camera access
+    autoRequestMedia: true
+});
+
+
+webrtc.on('readyToCall', function () {
+    // you can name it anything
+    webrtc.joinRoom('game580');
+    recorder = window.recorder = new VideoRecorder(video);
+});
+
+
+
+
+  var image = document.getElementById('demo');
+  var video = document.getElementById('localVideo');
+  var record = document.getElementById('record');
+  var play = document.getElementById('play');
+  var reset = document.getElementById('reset');
+  var recorder;
+
+
+record.addEventListener('click', function () {
+    if (recorder.running) {
+      recorder.stop();
+      this.innerHTML = 'Record';
+    } else {
+      recorder.record();
+      this.innerHTML = 'Pause';
+    }
+  });
+
+  play.addEventListener('click', function () {
+    fauxplay(recorder.data, image, {loop: true, duration: recorder.runningTime})
+  });
+
+  reset.addEventListener('click', function () {
+    recorder.stop();
+    recorder.reset();
+  });
+</script>
+</html>

@@ -28,7 +28,7 @@ function main() {
 	} else if (jump_time == 3) {
 		jump3();
 	}
-	
+	send(parseInt((document.getElementById('turtel').style.left) - 4) + "~" + (document.getElementById('turtel').style.top));
 	setTimeout(function(){main();},1000/30);
 }
 
@@ -85,9 +85,41 @@ function ani() {
 	}
 	if (jump_time == 4) {
 	document.getElementById("turtel").src = "img/turtrl_raw/turtel_raw_"+ ani_f +".png";
+	document.getElementById("turtel2").src = "img/turtrl_raw/turtel_raw_"+ ani_f +".png";
 	}
 	document.title = ani_f;
 	setTimeout(function(){ani();},240);
 }
 ani();
 main();
+
+
+
+
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+var last_send;
+var hach = location.hash || "???";
+var channel = "triktron_buurenruuzie" + hach;
+
+PUBNUB.subscribe({
+channel : channel,
+callback : function(text) { if ((''+text).replace( /[<>]/g, '' ) != last_send) {ont((''+text).replace( /[<>]/g, '' ));} }
+});
+
+
+function send(mes) {
+	PUBNUB.publish({
+channel : channel, message : mes
+});
+last_send = mes;
+}
+
+
+function ont(text) {
+	
+}
