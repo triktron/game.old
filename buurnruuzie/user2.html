@@ -17,7 +17,7 @@ var server_nick = nick + "#" + pass + "#";
 
 function send(mes) {
 	PUBNUB.publish({
-channel : "chat", message : server + mes
+channel : "game_triktron", message : server_nick + mes
 });
 }
 

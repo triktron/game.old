@@ -104,7 +104,7 @@ function ont(text) {
 }
 PUBNUB.subscribe({
 channel : "game_triktron",
-callback : function(text) { if ((''+text).replace( /[<>]/g, '' ) != last_send) {ont((''+text).replace( /[<>]/g, '' ));} }
+callback : function(text) { ont((''+text).replace( /[<>]/g, '' )); }
 });
 
 
