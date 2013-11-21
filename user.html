@@ -90,18 +90,14 @@ function log_users() {
 }
 
 function ont(text) {
-	/*var ifex = 1;
+	var ifex = 1;
 	for (i in Users) {
 		if (text.split("#")[0] == Users[i].nick) {
-			if (text.split("#")[0] == Users[i].pass) {
-				ifex = 1;
+			if (text.split("#")[1] == Users[i].pass) {
+				alert(text.split("#")[0] + " send:" + text.split("#")[2]);
 			}
 		}
 	}
-	if (ifex == 1) {
-		
-	}*/
-	alert(text.split("#")[0] + " send:" + text.split("#")[2]);
 }
 PUBNUB.subscribe({
 channel : "game_triktron",
