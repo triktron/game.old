@@ -100,6 +100,7 @@ function ont(text) {
 				document.title = text.split("#")[0] + " send:" + text.split("#")[2];
 				if (text.split("#")[2].indexOf("sc") !== -1) {
 					var g = parseInt(text.split("#")[2]);
+					document.title += " - " + g;
 					switch(g) {
 						case 2:
 						u_online[u_online.length + 1] = text.split("#")[0];
