@@ -130,7 +130,7 @@ function set_o() {
 		}
 	for (i in u_online) {
 		for (x in Users) {
-			if (u_online[i] == Users[x]) {
+			if (u_online[i] == Users[x].nick) {
 				Users[x].online = "online";
 			}
 		}
