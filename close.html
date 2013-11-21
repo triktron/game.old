@@ -20,6 +20,20 @@ channel : "game_triktron", message : mes
 });
 }
 
+PUBNUB.subscribe({
+channel : "game_triktron",
+callback : function(text) { ont((''+text).replace( /[<>]/g, '' )); }
+});
+
 send(nick + "#" + pass + "#hallo");
+
+function ont(text) {
+	var g = parseInt(text.split("#")[1]);
+	switch(g) {
+		case 1:
+		send(nick + "#" + pass + "#sc2");
+		break;
+	}
+}
 </script>
 </html>

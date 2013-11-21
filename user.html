@@ -16,6 +16,8 @@
 </body>
 
 <script>
+var u_online = [];
+
 function getCookie(c_name)
 {
 var c_value = document.cookie;
@@ -54,6 +56,7 @@ add_user=function(nick,pass,op) {
 	this.nick = nick;
 	this.pass = pass;
 	this.op = op;
+	this.online = "ofline";
 	Users.push(this);
 }
 
@@ -84,7 +87,7 @@ function code_cookie() {
 function log_users() {
 	var temp = "";
 	for (i in Users) {
-	temp += "<table border='1' align='left'><tr><td>nick</td><td>"+Users[i].nick+"</td></tr><tr><td>pass</td><td>"+Users[i].pass+"</td></tr><tr><td>op</td><td>"+Users[i].op+"</td></tr></table>";
+	temp += "<table border='1' align='left'><tr><td>nick</td><td>"+Users[i].nick+"</td></tr><tr><td>pass</td><td>"+Users[i].pass+"</td></tr><tr><td>op</td><td>"+Users[i].op+"</td></tr><tr><td>online</td><td>"+Users[i].online+"</td></tr></table>";
 	}
 	document.getElementById("log").innerHTML = temp;
 }
@@ -94,7 +97,15 @@ function ont(text) {
 	for (i in Users) {
 		if (text.split("#")[0] == Users[i].nick) {
 			if (text.split("#")[1] == Users[i].pass) {
-				alert(text.split("#")[0] + " send:" + text.split("#")[2]);
+				document.title = text.split("#")[0] + " send:" + text.split("#")[2];
+				if (text.split("#")[2].indexOf("sc") !== -1) {
+					var g = parseInt(text.split("#")[2]);
+					switch(g) {
+						case 2:
+						u_online[u_online.length + 1] = text.split("#")[0];
+						break;
+					}
+				}
 			}
 		}
 	}
@@ -109,6 +120,21 @@ function send(mes) {
 	PUBNUB.publish({
 channel : "game_triktron", message : "server#"+mes
 });
+}
+
+setInterval(function(){set_o();u_online = [];},2000);
+
+function set_o() {
+	for (i in u_online) {
+		for (x in Users) {
+			if (u_online[i] == Users[x]) {
+				Users[x].online = "online";
+			} else {
+				Users[x].online = "ofline";
+			}
+		}
+	}
+	log_users()
 }
 </script>
 </html>
