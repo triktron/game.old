@@ -125,12 +125,13 @@ channel : "game_triktron", message : "server#"+mes
 setInterval(function(){set_o();u_online = []; send("1");},2000);
 
 function set_o() {
+	for (x in Users) {
+			Users[x].online = "ofline";
+		}
 	for (i in u_online) {
 		for (x in Users) {
 			if (u_online[i] == Users[x]) {
 				Users[x].online = "online";
-			} else {
-				Users[x].online = "ofline";
 			}
 		}
 	}
