@@ -122,7 +122,7 @@ channel : "game_triktron", message : "server#"+mes
 });
 }
 
-setInterval(function(){set_o();u_online = [];},2000);
+setInterval(function(){set_o();u_online = []; send("1");},2000);
 
 function set_o() {
 	for (i in u_online) {
