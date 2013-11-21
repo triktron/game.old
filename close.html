@@ -11,16 +11,15 @@
 </body>
 
 <script>
+var nick = prompt("nick","");
+var pass = prompt("pass","");
+
 function send(mes) {
 	PUBNUB.publish({
-channel : "chat", message : mes
+channel : "game_triktron", message : mes
 });
 }
 
-window.onbeforeunload = confirmExit;
-function confirmExit(){
-	send("closed");
-    
-}
+send(nick + "#" + pass + "#hallo");
 </script>
 </html>
